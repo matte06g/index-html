@@ -1,0 +1,7 @@
+{
+    "magazzino": [
+        { "nome": "Mela", "prezzo_acquisto": 1.0, "guadagno": 0.5, "quantita": 100, "immagine": "https://example.com/mela.jpg" },
+        { "nome": "Arancia", "prezzo_acquisto": 1.2, "guadagno": 0.6, "quantita": 150, "immagine": "https://example.com/arancia.jpg" },
+        { "nome": "Banana", "prezzo_acquisto": 0.8, "guadagno": 0.4, "quantita": 200, "immagine": "https://example.com/banana.jpg" }
+    ]
+}

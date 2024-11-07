@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prodotti Supermercato</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Prodotti Supermercato</h2>
+
+<table id="t1"></table>
+<br>
+Percentuale di ricarico: <input id="percentuale" type="number" value="0">%
+<br><br>
+<input id="b1" type="button" onclick="LetturaFile();" value="Stampa Tabella Prodotti">
+<br> 
+
+<script>
+function LetturaFile() {
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open("GET", "http://localhost/magazzino1.json", true);
+    xhr.onload = function() {
+        const oggetto = JSON.parse(xhr.responseText);
+        const percentualeRicarico = document.getElementById("percentuale").value / 100;
+        let str = "<tr><th>Nome</th><th>Prezzo Acquisto</th><th>Prezzo Vendita</th><th>Guadagno</th><th>Quantità</th><th>Immagine</th></tr>";
+        
+        oggetto.magazzino.forEach(prodotto => {
+            let prezzoVendita = prodotto.prezzo_acquisto * (1 + percentualeRicarico);
+            let guadagno = prezzoVendita - prodotto.prezzo_acquisto;
+            str += `<tr>
+                        <td>${prodotto.nome}</td>
+                        <td>${prodotto.prezzo_acquisto.toFixed(2)}</td>
+                        <td>${prezzoVendita.toFixed(2)}</td>
+                        <td>${guadagno.toFixed(2)}</td>
+                        <td>${prodotto.quantita}</td>
+                        <td><img src="${prodotto.immagine}" alt="${prodotto.nome}" width="50" height="50"></td>
+                    </tr>`;
+        });
+
+        document.getElementById("t1").innerHTML = str;
+    }
+
+    xhr.send();
+}
+</script>
+
+</body>
+</html>
